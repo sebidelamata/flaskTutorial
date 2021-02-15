@@ -3,7 +3,7 @@
 # on creating a basic web app with flask
 
 # importing libraries
-import flask
+import flask, render_template
 
 # here we are creating an instance of the flask class and
 # pass the name of the current module to its constructor
@@ -17,7 +17,7 @@ app = flask.Flask(__name__)
 @app.route("/")
 # next we have a straight up python function that returns a super cheesy string
 def home():
-    return "Welcome to my home page that I made available with the help of flask."
+    return render_template("index.html")
 
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
