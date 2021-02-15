@@ -19,6 +19,7 @@ app = flask.Flask(__name__)
 def home():
     return "Welcome to my home page that I made available with the help of flask."
 
-# add debugging that will show up on our page if something goes wrong 
+# add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
     app.run(debug=True)
+    #small change
