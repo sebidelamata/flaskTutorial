@@ -3,11 +3,11 @@
 # on creating a basic web app with flask
 
 # importing libraries
-import flask, render_template
+from flask import Flask, render_template
 
 # here we are creating an instance of the flask class and
 # pass the name of the current module to its constructor
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 
 # this function will define our home page, but we need a way to know this is our home page
@@ -22,4 +22,3 @@ def home():
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
     app.run(debug=True)
-    #small change
