@@ -53,9 +53,9 @@ class Todo(db.Model):
 # before we write our home page function, we are going to wrap this function with the
 # decorator fuction @app.route(). The string inside the parens shows the path of the page
 # since we are doing our home page for our site, the string is simply "/"
-@app.route("/")
+@app.route("/", methods=['POST', 'GET'])
 # next we have a straight up python function that returns a super cheesy string
-def home():
+def index():
     return render_template("index.html")
 
 # add debugging that will show up on our page if something goes wrong
