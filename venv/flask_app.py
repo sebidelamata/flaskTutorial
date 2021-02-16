@@ -56,10 +56,25 @@ class Todo(db.Model):
 @app.route("/", methods=['POST', 'GET'])
 # next we have a straight up python function that returns a super cheesy string
 def index():
+    # if the request is a content post we want to assign the content to a
+    # variable then pass that to a new task
     if request.method == 'POST':
-        pass
+        task_content = request.form['content']
+        new_task = Todo(content=task_content)
+
+        # then we try to add our new task to the list of things we want our db to do.
+        # then we commit the tasks we wanted added
+        # then we redirect to our page
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "There were issues adding your task"
     else:
-        return render_template("index.html")
+        # or else just stay on the page after looking up all the tasks by date
+        tasks = Todo.query.order_by(Todo.date_created).all()
+        return render_template("index.html", tasks=tasks)
 
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
