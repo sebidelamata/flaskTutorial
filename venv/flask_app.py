@@ -5,12 +5,14 @@
 # importing libraries
 from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 # here we are creating an instance of the flask class and
 # pass the name of the current module to its constructor
 app = Flask(__name__)
 
 # here we are configuring a resource (our sql database)
+# we are telling our app where to locate our database
 #### SIDEQUEST ALERT ####
 # I didn't know what a URI was so looked it up, but the answer
 # I got made me think this should be labeled a url and not uri
@@ -24,7 +26,27 @@ app = Flask(__name__)
 # If the protocol (https, ftp, etc.) is either present or implied for a domain,
 # you should call it a URL—even though it’s also a URI.
 # see what I mean? Anyways...
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////test.db'
+
+# next we will initialize our database
+db = SQLAlchemy(app)
+
+# next we are going to create our database model
+# we have three columns in this table,
+# one for id,
+# one for the content of the to-do task,
+# and one that records the date the task was created
+# the model is stored as a class
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(500), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # next we create a function that returns a string (the task id) every
+    # time something is entered in the table
+    def __repr__(self):
+        return '<Task %r>' % self.id
+
 
 
 # this function will define our home page, but we need a way to know this is our home page
