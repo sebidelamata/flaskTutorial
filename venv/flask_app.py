@@ -56,7 +56,10 @@ class Todo(db.Model):
 @app.route("/", methods=['POST', 'GET'])
 # next we have a straight up python function that returns a super cheesy string
 def index():
-    return render_template("index.html")
+    if request.method == 'POST':
+        pass
+    else:
+        return render_template("index.html")
 
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
