@@ -26,7 +26,7 @@ app = Flask(__name__)
 # If the protocol (https, ftp, etc.) is either present or implied for a domain,
 # you should call it a URL—even though it’s also a URI.
 # see what I mean? Anyways...
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
 # next we will initialize our database
 db = SQLAlchemy(app)
