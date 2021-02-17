@@ -103,6 +103,20 @@ def delete(id):
     except:
             return "There was an issue deleting the task, try again later."
 
+# we are creating another page/route that updates a particular
+# task (allows the user to edit the string)
+# the route wrapper function is pretty much the
+# same as the last one, except it also needs the get and post methods
+# like our index page so that the edited task will be posted
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+# the function itself takes the id and returns the update.html
+# template unless it is in the act of posting
+def update(id):
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("update.html")
+
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
     app.run(debug=True)
