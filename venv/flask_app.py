@@ -75,7 +75,7 @@ def index():
         # or else just stay on the page after looking up all the tasks by date
         tasks = Todo.query.order_by(Todo.date_created).all()
         return render_template("index.html", tasks=tasks)
-
+#comment
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
     app.run(debug=True)
