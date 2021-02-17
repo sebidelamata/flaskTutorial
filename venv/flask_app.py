@@ -76,6 +76,33 @@ def index():
         tasks = Todo.query.order_by(Todo.date_created).all()
         return render_template("index.html", tasks=tasks)
 
+
+
+# here we are creating a new route for deleting entries
+# the wrapper function creates a route that goes to home directory,
+# then the delete subdirectory,
+# then to a subdirectory that accepts and int argument
+# that int argument in the id field of our sql table
+# the id is our primary key for the table and serves as a unique
+# identifier for the entry we want to delete
+@app.route('/delete/<int:id>')
+# now we will create our function that actually deletes the variable
+def delete(id):
+    # this line creates a variable task_to_delete, that is the result of
+    # querying the database for the id,
+    # if it does not find the id, it results in a 404 error
+    task_to_delete = Todo.query.get_or_404(id)
+    # now we pass our variable to a try statement where we we will
+    # actually delete it from the database,
+    # then commit our changes to the database,
+    # and finally redirect back to the homepage
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+            return "There was an issue deleting the task, try again later."
+
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
     app.run(debug=True)
