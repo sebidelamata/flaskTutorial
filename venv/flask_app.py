@@ -109,13 +109,22 @@ def delete(id):
 # same as the last one, except it also needs the get and post methods
 # like our index page so that the edited task will be posted
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
-# the function itself takes the id and returns the update.html
-# template unless it is in the act of posting
+# the function itself queries the database for the entry matching the id and assigns that to a variable
+# The content value of the variable is then updated to what was in the request form
+# then it tries to commit the change to the database
 def update(id):
+    task_to_update = Todo.query.get_or_404(id)
+
     if request.method == "POST":
-        pass
+        task_to_update.content = request.form["content"]
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "There was an issue updating your task, please try again later."
     else:
-        return render_template("update.html")
+        return render_template("update.html", task=task_to_update)
 
 # add debugging that will show up on our page if something goes wrong
 if __name__ == "__main__":
